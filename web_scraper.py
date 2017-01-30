@@ -1,3 +1,4 @@
+from collections import defaultdict
 from bs4 import BeautifulSoup as bsoup
 from womens_depts import womens_depts
 from urllib.request import urlopen
@@ -19,7 +20,23 @@ def get_all_links(soup_list):
             all_urls.append(item['href'])
     return all_urls
 
+def create_dict(all_urls):
+    text_dict = defaultdict(list)
+    for item in all_urls:
+        web_page = urlopen(item)
+        soup = bsoup(web_page.read())
+        title = soup.find_all('div', attrs={'class':'story-title'})
+        for item in text:
+            text_dict['title'].append(item.text.strip())
+        text = soup.select('p.product-story:not(.story-title)')
+    print (text_dict)
+    return text_dict
+
+def main():
+    list_page_soup = get_womens_data()
+    all_urls = get_all_links(list_page_soup)
+    print(all_urls)
+    create_dict(all_urls)
 
 if __name__  ==  "__main__":
-    list_page_soup = get_womens_data()
-    print(get_all_links(list_page_soup))
+    main()
