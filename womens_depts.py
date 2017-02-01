@@ -2,4 +2,4 @@
 #                 'Blazers-and-Jackets', 'Outerwear', 'Sleepwear'
 #  ]
 
-womens_depts = ['Dresses', 'Caftans', 'Blouses', 'Sweaters']
+womens_depts = ['Dresses']

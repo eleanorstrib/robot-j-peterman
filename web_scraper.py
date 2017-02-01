@@ -25,10 +25,19 @@ def create_dict(all_urls):
     for item in all_urls:
         web_page = urlopen(item)
         soup = bsoup(web_page.read())
-        title = soup.find_all('div', attrs={'class':'story-title'})
-        for item in text:
-            text_dict['title'].append(item.text.strip())
-        text = soup.select('p.product-story:not(.story-title)')
+        # title = soup.find_all('div', attrs={'class':'story-title'})
+        # for item in title:
+        #     text_dict['title'].append(item.text.strip())
+        full_story = soup.find_all('div', attrs={'id':'product-story'})
+        parsed = [item.text.strip() for item in full_story]
+        print(parsed)
+
+        # text_dict['story'].extend([item.find('p').text for item in full_story])
+        # titles =  soup.select('.story-title')
+        #
+        # text_dict['title'].extend([item.text.strip() for item in titles])
+        # text_dict['title'].append([item.text for item[0] in ])
+        # text_dict['story'].append(item.text for item in full_story)
     print (text_dict)
     return text_dict
 
