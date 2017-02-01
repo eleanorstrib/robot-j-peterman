@@ -31,10 +31,10 @@ def create_dict(all_urls):
         full_story = soup.find('div', attrs={'id':'product-story'})
         stories = full_story.find_all('p')
         parsed = ' '.join([item.text for item in stories])
-        # text_dict['story'].extend(parsed)
-        print(parsed)
+        text_dict['story'].append(parsed)
+        # print(parsed)
         # text_dict['story'].append(item.text for item in full_story)
-    # print (text_dict)
+    print (text_dict)
     return text_dict
 
 def main():
