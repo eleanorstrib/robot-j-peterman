@@ -29,11 +29,14 @@ def create_dict(all_urls):
         # for item in title:
         #     text_dict['title'].append(item.text.strip())
         full_story = soup.find('div', attrs={'id':'product-story'})
-        stories = full_story.find_all('p')
-        parsed = ' '.join([item.text for item in stories])
-        text_dict['story'].append(parsed)
-        # print(parsed)
-        # text_dict['story'].append(item.text for item in full_story)
+        #extract title and add to dict
+        raw_title = full_story.select('.story-title')
+        text_dict['title'].extend([item.text.strip() for item in raw_title])
+        #extract story and add to dict
+        raw_story = full_story.find_all('p')
+        parsed_story = ' '.join([item.text for item in raw_story])
+        text_dict['story'].append(parsed_story)
+
     print (text_dict)
     return text_dict
 
