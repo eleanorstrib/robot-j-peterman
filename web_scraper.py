@@ -25,15 +25,27 @@ def create_dict(all_urls):
     for item in all_urls:
         web_page = urlopen(item)
         soup = bsoup(web_page.read())
-        # title = soup.find_all('div', attrs={'class':'story-title'})
-        # for item in title:
-        #     text_dict['title'].append(item.text.strip())
-        full_story = soup.find('div', attrs={'id':'product-story'})
+
+        #get full product story from the webpage
+        try:
+            full_story = soup.find('div', attrs={'id':'product-story'})
+        except(AttributeError):
+            print('attribute error at full_story')
+
+
         #extract title and add to dict
-        raw_title = full_story.select('.story-title')
+        try:
+            raw_title = full_story.select('.story-title')
+        except(AttributeError):
+            print('AttributeError at raw title')
+
         text_dict['title'].extend([item.text.strip() for item in raw_title])
         #extract story and add to dict
-        raw_story = full_story.find_all('p')
+        try:
+            raw_story = full_story.find_all('p')
+        except(AttributeError):
+            print('attribute error at raw story')
+
         parsed_story = ' '.join([item.text for item in raw_story])
         text_dict['story'].append(parsed_story)
 
@@ -43,7 +55,6 @@ def create_dict(all_urls):
 def main():
     list_page_soup = get_womens_data()
     all_urls = get_all_links(list_page_soup)
-    print(all_urls)
     create_dict(all_urls)
 
 if __name__  ==  "__main__":
